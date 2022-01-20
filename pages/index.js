@@ -3,15 +3,29 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useRouter } from "next/router";
+import {useEffect, useState} from 'react'
 
 export default function Home() {
 
   const router = useRouter();
   const {data: session} = useSession()
+  const [Loading, SetLoading] = useState(true)
 
-  console.log(session);
+  console.log(session.data);
+
   
-  if(!session) return <signIn/>
+  
+  useEffect(() => { 
+    setTimeout(() => {
+      if(!session.data){
+        router.push('/signin')
+      } else {
+        SetLoading(false)
+      } 
+    }, 5000);
+  }, [])
+
+  if(Loading) return "Loading"
 
   return (
     <div className={styles.container}>

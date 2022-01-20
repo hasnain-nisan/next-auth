@@ -23,7 +23,7 @@ const Login = ({ csrfToken }) => {
         <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
         <label>
           Username
-          <input name="username" type="text" />
+          <input name="email" type="text" />
         </label>
         <label>
           Password

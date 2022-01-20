@@ -18,7 +18,7 @@ export default NextAuth({
       },
       authorize: async (credentials) => {
         const response = await axios.post("https://maway.atiar.info/api/v1/auth/login", {
-            email: credentials.Email,
+            email: credentials.email,
             password: credentials.password
         }, {
           headers: {
