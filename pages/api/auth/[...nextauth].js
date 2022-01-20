@@ -59,6 +59,6 @@ export default NextAuth({
     encryption: true,
   },
   pages: {
-    // signIn: '/signin',
+    signIn: '/signin',
   },
 });

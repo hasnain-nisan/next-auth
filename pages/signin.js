@@ -1,8 +1,16 @@
 import Head from 'next/head';
 import React from 'react';
+import styles from '../styles/Home.module.css'
+import {signIn} from 'next-auth/react'
+import { SessionProvider } from "next-auth/react";
+import { getCsrfToken } from "next-auth/react"
 
-const Login = () => {
+const Login = ({ csrfToken }) => {
+
+  // console.log(providers);
+
   return (
+
     <div className={"ggg"}>
       <Head>
         <title>Login</title>
@@ -10,26 +18,32 @@ const Login = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={"main"}>
-        <h1 className={"title"}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <main className="w-full h-full items-center justify-center bg-red-300">
+      <form method="post" action="/api/auth/callback/credentials">
+        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+        <label>
+          Username
+          <input name="username" type="text" />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" />
+        </label>
+        <button type="submit">Sign in</button>
+      </form>
       </main>
-
-      <footer className={"footer"}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={"logo"}>
-            {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
-          </span>
-        </a>
-      </footer>
     </div>
   )
 };
 
 export default Login;
+
+// This is the recommended way for Next.js 9.3 or newer
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  }
+}
+
