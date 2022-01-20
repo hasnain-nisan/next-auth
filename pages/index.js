@@ -1,13 +1,17 @@
-import { useSession } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useRouter } from "next/router";
 
 export default function Home() {
 
+  const router = useRouter();
   const {data: session} = useSession()
 
   console.log(session);
+  
+  if(!session) return <signIn/>
 
   return (
     <div className={styles.container}>

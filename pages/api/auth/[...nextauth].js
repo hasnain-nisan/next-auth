@@ -20,10 +20,15 @@ export default NextAuth({
         const response = await axios.post("https://maway.atiar.info/api/v1/auth/login", {
             email: credentials.Email,
             password: credentials.password
+        }, {
+          headers: {
+            role: 'sa'
+          }
         });
         console.log(credentials);
         if (response) {
           console.log(response.data);
+          return response.data
         }
 
         // login failed
@@ -32,17 +37,17 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    jwt: ({ token, response }) => {
+    jwt: ({ token, user }) => {
       // first time jwt callback is run, user object is available
-      if (response) {
-        token.id = user.id;
+      if (user) {
+        token.data = user;
       }
 
       return token;
     },
     session: ({ session, token }) => {
       if (token) {
-        session.id = token.id;
+        session.data = token.data;
       }
 
       return session;
@@ -54,6 +59,6 @@ export default NextAuth({
     encryption: true,
   },
   pages: {
-    // signIn: "auth/sigin",
+    // signIn: '/signin',
   },
 });
