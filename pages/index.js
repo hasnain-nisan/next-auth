@@ -1,31 +1,31 @@
-import { signIn, useSession } from 'next-auth/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useRouter } from "next/router";
 import {useEffect, useState} from 'react'
+import { getProviders, getSession, useSession } from "next-auth/react";
+import Login from '../components/Login';
 
-export default function Home() {
+export default function Home({providers}) {
 
   const router = useRouter();
   const {data: session} = useSession()
   const [Loading, SetLoading] = useState(true)
 
-  console.log(session.data);
+  console.log(session)
+  // useEffect(() => { 
+  //   setTimeout(() => {
+  //     if(!session.data){
+  //       router.push('/signin')
+  //     } else {
+  //       SetLoading(false)
+  //     } 
+  //   }, 5000);
+  // }, [])
 
-  
-  
-  useEffect(() => { 
-    setTimeout(() => {
-      if(!session.data){
-        router.push('/signin')
-      } else {
-        SetLoading(false)
-      } 
-    }, 5000);
-  }, [])
+  // if(Loading) return "Loading"
 
-  if(Loading) return "Loading"
+  // if(!session) return <Login/>
 
   return (
     <div className={styles.container}>
@@ -37,7 +37,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          HOME
         </h1>
       </main>
 
@@ -56,3 +56,19 @@ export default function Home() {
     </div>
   )
 }
+
+
+// export async function getServerSideProps(context) {
+//   const session = await getSession(context)
+
+//   if (!session) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     }
+//   }
+
+//   return session
+// }

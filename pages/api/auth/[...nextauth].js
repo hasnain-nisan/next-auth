@@ -26,13 +26,13 @@ export default NextAuth({
           }
         });
         console.log(credentials);
-        if (response) {
+        if (response.success) {
           console.log(response.data);
           return response.data
         }
 
         // login failed
-        return response.data;
+        return null;
       },
     }),
   ],

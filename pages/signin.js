@@ -19,18 +19,22 @@ const Login = ({ csrfToken }) => {
       </Head>
 
       <main className="w-full h-full items-center justify-center bg-red-300">
-      <form method="post" action="/api/auth/callback/credentials">
-        <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-        <label>
-          Username
-          <input name="email" type="text" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" />
-        </label>
-        <button type="submit">Sign in</button>
-      </form>
+      <div className="w-screen h-screen flex items-center justify-center bg-red-300">
+              <div className="flex flex-col">
+              <form className="flex flex-col" method="post" action="/api/auth/callback/credentials">
+                    <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+                    <label className="p-5 ">
+                    Username
+                    <input className="ml-3" name="email" type="text" />
+                    </label>
+                    <label className="p-5">
+                    Password
+                    <input className='ml-3' name="password" type="password" />
+                    </label>
+                    <button className="bg-gray-500 rounded-xl" type="submit">Sign in</button>
+                </form>
+              </div>
+          </div>
       </main>
     </div>
   )
